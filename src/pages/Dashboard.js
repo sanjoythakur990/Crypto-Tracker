@@ -1,9 +1,27 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Common/Header";
 import TabsComponent from "../components/Dashboard/Tabs";
+import Search from "../components/Dashboard/Search";
+import PaginationComponent from "../components/Dashboard/PaginationComponent";
 
 function Dashboard() {
   const [coins, setCoins] = useState([]);
+  const [paginatedCoins, setPaginatedCoins] = useState([]) 
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const handlePageChange = (event, value) => {
+    setPage(value);
+    var previousIndex = (value - 1) * 10;
+    setPaginatedCoins(coins.slice(previousIndex, previousIndex + 10))
+  };
+  const onSearchChange = (e) => {
+    setSearch(e.target.value);
+  };
+  var filteredCoins = coins.filter(
+    (coin) =>
+      coin.name.toLowerCase().includes(search.toLowerCase()) ||
+      coin.symbol.toLowerCase().includes(search.toLowerCase())
+  );
   // const coins = [
   //   {
   //     "id": "bitcoin",
@@ -75,7 +93,8 @@ function Dashboard() {
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
-        setCoins(json)
+        setCoins(json);
+        setPaginatedCoins(json.slice(0, 10))
       })
       .catch((err) => console.error(err));
   }, []);
@@ -83,7 +102,9 @@ function Dashboard() {
   return (
     <div>
       <Header />
-      <TabsComponent coins={coins}/>
+      <Search search={search} onSearchChange={onSearchChange} />
+      <TabsComponent coins={search ? filteredCoins : paginatedCoins} />
+      {!search && <PaginationComponent page={page} handlePageChange={handlePageChange}/>}
     </div>
   );
 }
