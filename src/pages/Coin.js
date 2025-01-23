@@ -28,7 +28,7 @@ function CoinPage() {
         console.error(err);
         setIsLoading(false);
       });
-  }, []);
+  }, [id]);
   return <div>
     <Header />
     {isLoading ? <Loader /> : 
