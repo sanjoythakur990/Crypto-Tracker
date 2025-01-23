@@ -3,16 +3,20 @@ import Header from "../components/Common/Header";
 import TabsComponent from "../components/Dashboard/Tabs";
 import Search from "../components/Dashboard/Search";
 import PaginationComponent from "../components/Dashboard/PaginationComponent";
+import Loader from "../components/Common/Loader";
+import BackToTop from "../components/Common/BackToTop";
 
 function Dashboard() {
   const [coins, setCoins] = useState([]);
-  const [paginatedCoins, setPaginatedCoins] = useState([]) 
+  const [paginatedCoins, setPaginatedCoins] = useState([]);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+
   const handlePageChange = (event, value) => {
     setPage(value);
     var previousIndex = (value - 1) * 10;
-    setPaginatedCoins(coins.slice(previousIndex, previousIndex + 10))
+    setPaginatedCoins(coins.slice(previousIndex, previousIndex + 10));
   };
   const onSearchChange = (e) => {
     setSearch(e.target.value);
@@ -94,18 +98,35 @@ function Dashboard() {
       .then((json) => {
         console.log(json);
         setCoins(json);
-        setPaginatedCoins(json.slice(0, 10))
+        setPaginatedCoins(json.slice(0, 10));
+        setIsLoading(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
   }, []);
   console.log("COIN => ", coins);
   return (
-    <div>
+    <>
+      
       <Header />
-      <Search search={search} onSearchChange={onSearchChange} />
-      <TabsComponent coins={search ? filteredCoins : paginatedCoins} />
-      {!search && <PaginationComponent page={page} handlePageChange={handlePageChange}/>}
-    </div>
+      <BackToTop />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div>
+          <Search search={search} onSearchChange={onSearchChange} />
+          <TabsComponent coins={search ? filteredCoins : paginatedCoins} />
+          {!search && (
+            <PaginationComponent
+              page={page}
+              handlePageChange={handlePageChange}
+            />
+          )}
+        </div>
+      )}
+    </>
   );
 }
 

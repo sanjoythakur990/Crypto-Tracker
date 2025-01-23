@@ -53,3 +53,16 @@ a{
   color: var(--white) !important;
   text-decoration: none !important;
 }
+html{
+  scroll-behavior: smooth;
+}
+.grey-wrapper{
+  width: 90%;
+  background-color: var(--darkgrey);
+  margin: 1.5rem auto;
+  border-radius: 0.8rem;
+  padding: 0rem 1rem;
+}
+.coin-list-view{
+  cursor: pointer;
+}
