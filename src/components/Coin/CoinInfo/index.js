@@ -8,7 +8,7 @@ function CoinInfo({ heading, description }) {
   const longDesc = description + "<p style='color: var(--grey); cursor: pointer;'> Read Less...</p>";
   const [flag, setFlag] = useState(false);
   return (
-    <div className="grey-wrapper">
+    <div className="grey-wrapper" style={{padding: "0rem 1rem"}}>
       <h2 className="coin-info-heading">{heading}</h2>
       {/* <p className='coin-info-desc'>{description}</p> */}
       {description.length > 350 ? (

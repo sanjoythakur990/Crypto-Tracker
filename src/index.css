@@ -63,6 +63,13 @@ html{
   border-radius: 0.8rem;
   padding: 0rem 1rem;
 }
-.coin-list-view{
+/* .coin-list-view{
   cursor: pointer;
+} */
+.coins-days-flex{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 1.5rem;
 }
