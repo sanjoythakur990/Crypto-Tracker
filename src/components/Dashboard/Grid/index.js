@@ -4,11 +4,14 @@ import TrendingUpRoundedIcon from "@mui/icons-material/TrendingUpRounded";
 import TrendingDownRoundedIcon from "@mui/icons-material/TrendingDownRounded";
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
+import { Tooltip } from "@mui/material";
 import { Link } from "react-router-dom";
-import { addTowatchcList } from "../../../functions/addToWatchList";
+import { addTowatchcList, removeFromWatchList } from "../../../functions/addToWatchList";
 
 function Grid({ coin, i }) {
+  const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
 
+  const isInWatchlist = (id) => watchlist.includes(id);
 
   return (
     <Link to={`/coin/${coin.id}`}>
@@ -26,17 +29,33 @@ function Grid({ coin, i }) {
           </div>
           
         </div>
+        <Link to="/watchlist">
+        <Tooltip title={isInWatchlist(coin.id) ? "Remove from Watchlist" : "Add coin to Watchlist"} placement="bottom-start">
         {coin.price_change_percentage_24h > 0 ? (
-        <div className="star-icon-green" onClick={() => addTowatchcList(coin.id)}>
+        <div className="star-icon-green" onClick={() => !isInWatchlist(coin.id) ? addTowatchcList(coin.id) : removeFromWatchList(coin.id)}>
+          {!isInWatchlist(coin.id) ?
+          <>
             <StarBorderIcon className="star-bordered" style={{ fontSize: "2rem", color: "var(--green)"}}/>
-            <StarIcon className="star-filled" style={{ fontSize: "2rem", color: "var(--green)" }}/>
+            <StarIcon className="star-filled-x" style={{ fontSize: "2rem", color: "var(--green)"}}/>
+            </> :
+            
+            <StarIcon className="star-filled" style={{ fontSize: "2rem", color: "var(--green)"}}/>
+            
+            }
+            
           </div>
         ) : (
-          <div className="star-icon-red" onClick={() => addTowatchcList(coin.id)}>
-            <StarBorderIcon className="star-bordered" style={{ fontSize: "2rem", color: "var(--red)" }}/>
-            <StarIcon className="star-filled" style={{ fontSize: "2rem", color: "var(--red)"}}/>
+          <div className="star-icon-red" onClick={() => !isInWatchlist(coin.id) ? addTowatchcList(coin.id) : removeFromWatchList(coin.id)}>
+            {!isInWatchlist(coin.id) ?
+            <>
+            <StarBorderIcon className="star-bordered" style={{ fontSize: "2rem", color: "var(--red)"}}/>
+            <StarIcon className="star-filled-x" style={{ fontSize: "2rem", color: "var(--red)"}}/>
+            </> :
+            <StarIcon className="star-filled" style={{ fontSize: "2rem", color: "var(--red)"}}/>}
           </div>
         )}
+        </Tooltip>
+        </Link>
           </div>
           
 

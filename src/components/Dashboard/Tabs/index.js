@@ -8,7 +8,7 @@ import "./styles.css";
 import Grid from "../Grid";
 import List from "../List";
 
-export default function TabsComponent({ coins }) {
+export default function TabsComponent({ coins, isRemoved, setIsRemoved }) {
   const [value, setValue] = useState("grid");
 
   const handleChange = (event, newValue) => {
@@ -52,7 +52,7 @@ export default function TabsComponent({ coins }) {
           <table className="list-table">
             {coins.map((coin, i) => {
               return (
-                <List coin={coin} key={i}/>
+                <List coin={coin} key={i} isRemoved={isRemoved} setIsRemoved={setIsRemoved}/>
               );
             })}
           </table>
