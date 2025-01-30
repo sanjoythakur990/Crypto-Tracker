@@ -9,13 +9,14 @@ import Loader from "../components/Common/Loader";
 function WatchList() {
   const [coins, setCoins] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [list, setList] = useState(localStorage.getItem("watchlist"))
 
   useEffect(() => {
     if(localStorage.getItem("watchlist") && JSON.parse(localStorage.getItem("watchlist")).length > 0 ){
       console.log(localStorage.getItem("watchlist"));
       getCoins()
     }
-  }, []);
+  }, [list]);
 
   const getCoins = async () => {
     const allCoins = await get100Coins();
@@ -52,7 +53,7 @@ function WatchList() {
       ) :
       (isLoading ? <Loader /> :
         <div>
-          <TabsComponent coins={coins} />
+          <TabsComponent coins={coins} setList={setList} />
         </div>
 )}
     </div>

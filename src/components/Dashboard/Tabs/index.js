@@ -8,7 +8,7 @@ import "./styles.css";
 import Grid from "../Grid";
 import List from "../List";
 
-export default function TabsComponent({ coins, isRemoved, setIsRemoved }) {
+export default function TabsComponent({ coins, setList }) {
   const [value, setValue] = useState("grid");
 
   const handleChange = (event, newValue) => {
@@ -43,7 +43,7 @@ export default function TabsComponent({ coins, isRemoved, setIsRemoved }) {
           <div className="grid-flex">
             {coins.map((coin, i) => {
               return (
-                <Grid coin={coin} key={i}/>
+                <Grid coin={coin} key={i} setList={setList}/>
               );
             })}
           </div>
@@ -52,7 +52,7 @@ export default function TabsComponent({ coins, isRemoved, setIsRemoved }) {
           <table className="list-table">
             {coins.map((coin, i) => {
               return (
-                <List coin={coin} key={i} isRemoved={isRemoved} setIsRemoved={setIsRemoved}/>
+                <List coin={coin} key={i} setList={setList}/>
               );
             })}
           </table>

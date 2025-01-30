@@ -14,7 +14,7 @@ export const addTowatchcList = (coinId) =>{
     toast.success("Added to Watchlist")
 }
 
-export const removeFromWatchList = (coinId) =>{
+export const removeFromWatchList = (coinId, setList) =>{
     let watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
 
     // Filter out the coin instead of using splice
@@ -23,7 +23,8 @@ export const removeFromWatchList = (coinId) =>{
         localStorage.setItem("watchlist", JSON.stringify(watchlist))
         
         toast.success("Removed from Watchlist")
-        setTimeout(() => {
-            window.location.reload();
-        }, 1000);
+        setList(watchlist)
+        // setTimeout(() => {
+        //     window.location.reload();
+        // }, 1000);
 }

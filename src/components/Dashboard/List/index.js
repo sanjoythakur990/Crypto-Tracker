@@ -9,7 +9,7 @@ import { convertNumber } from "../../../functions/convertNumber";
 import { Link } from "react-router-dom";
 import { addTowatchcList, removeFromWatchList } from "../../../functions/addToWatchList";
 
-function List({ coin }) {
+function List({ coin, setList }) {
   const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
 
   const isInWatchlist = (id) => watchlist.includes(id);
@@ -83,7 +83,7 @@ function List({ coin }) {
         <Link to="/watchlist">
         <Tooltip title={isInWatchlist(coin.id) ? "Remove from Watchlist" : "Add to Watchlist"} placement="bottom-start">
         {coin.price_change_percentage_24h > 0 ? (
-        <td className="star-icon-green" onClick={() => !isInWatchlist(coin.id) ? addTowatchcList(coin.id) : removeFromWatchList(coin.id)}>
+        <td className="star-icon-green" onClick={() => !isInWatchlist(coin.id) ? addTowatchcList(coin.id) : removeFromWatchList(coin.id, setList)}>
             {!isInWatchlist(coin.id) ?
           <>
             <StarBorderIcon className="star-bordered" style={{ fontSize: "2rem", color: "var(--green)"}}/>
@@ -95,7 +95,7 @@ function List({ coin }) {
             }
           </td>
         ) : (
-          <td className="star-icon-red" onClick={() => !isInWatchlist(coin.id) ? addTowatchcList(coin.id) : removeFromWatchList(coin.id)}>
+          <td className="star-icon-red" onClick={() => !isInWatchlist(coin.id) ? addTowatchcList(coin.id) : removeFromWatchList(coin.id, setList)}>
             {!isInWatchlist(coin.id) ?
             <>
             <StarBorderIcon className="star-bordered" style={{ fontSize: "2rem", color: "var(--red)"}}/>
