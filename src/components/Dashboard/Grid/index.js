@@ -30,7 +30,7 @@ function Grid({ coin, i }) {
           
         </div>
         <Link to="/watchlist">
-        <Tooltip title={isInWatchlist(coin.id) ? "Remove from Watchlist" : "Add coin to Watchlist"} placement="bottom-start">
+        <Tooltip title={isInWatchlist(coin.id) ? "Remove from Watchlist" : "Add to Watchlist"} placement="bottom-start">
         {coin.price_change_percentage_24h > 0 ? (
         <div className="star-icon-green" onClick={() => !isInWatchlist(coin.id) ? addTowatchcList(coin.id) : removeFromWatchList(coin.id)}>
           {!isInWatchlist(coin.id) ?
