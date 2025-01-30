@@ -13,4 +13,16 @@
 }
 .back-to-top:hover{
     cursor: pointer;
+    .filled{
+        display: block !important;
+    }
+    .outlined{
+        display: none !important;
+    }
+}
+/* .back-to-top:hover svg {
+    fill: var(--blue) !important;
+} */
+.filled{
+    display: none !important;
 }
